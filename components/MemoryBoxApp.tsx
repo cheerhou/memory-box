@@ -303,24 +303,24 @@ export function MemoryBoxApp() {
       )}
 
       {view === 'intro' && (
-        <section className="space-y-6 rounded-3xl border border-memory-rose/40 bg-white/80 p-10 text-center shadow-sm">
-          <h2 className="text-3xl font-semibold text-memory-ink sm:text-4xl">
+        <section className="space-y-6 rounded-3xl border border-memory-coral/30 bg-white/85 p-10 text-center shadow-sm">
+          <h2 className="font-script text-3xl text-memory-text sm:text-4xl">
             留下今天的闪光时刻 ✨
           </h2>
-          <p className="text-base leading-relaxed text-memory-ink/75">
+          <p className="font-script text-base leading-relaxed text-memory-text">
             让 AI 帮你把碎碎念变成温柔手账，轻松收藏孩子成长的亮点瞬间。
           </p>
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <button
               type="button"
               onClick={handleStartRecording}
-              className="w-full rounded-xl bg-memory-rose px-6 py-3 text-base font-semibold text-white transition hover:bg-memory-rose/90 sm:w-auto"
+              className="font-button w-full rounded-xl bg-memory-coral px-6 py-3 text-base font-semibold text-white transition hover:bg-memory-coral/90 sm:w-auto"
             >
               添加今天的闪光时刻
             </button>
             <Link
               href="/memories"
-              className="text-sm font-medium text-memory-ink/70 transition hover:text-memory-ink"
+              className="font-sans text-sm font-medium text-memory-muted transition hover:text-memory-text"
             >
               或看看我们的成长手账 →
             </Link>
@@ -329,24 +329,24 @@ export function MemoryBoxApp() {
       )}
 
       {view !== 'intro' && (
-        <section className="space-y-8 rounded-3xl border border-memory-rose/40 bg-white/80 p-8 shadow-sm backdrop-blur">
+        <section className="space-y-8 rounded-3xl border border-memory-coral/25 bg-white/85 p-8 shadow-sm backdrop-blur">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <h3 className="text-2xl font-semibold text-memory-ink">
+              <h3 className="font-script text-2xl text-memory-text">
                 {view === 'editing' ? '预览并轻轻润色' : '添加今天的闪光时刻'}
               </h3>
-              <p className="text-sm text-memory-ink/70">
+              <p className="font-sans text-sm text-memory-muted">
                 {view === 'generating'
                   ? '正在为你写下今天的温柔… 🌼'
                   : profile && agePreview
-                  ? `${profile.nickname} 现在约 ${agePreview}，告诉我们最近发生了什么吧。`
+                  ? <span className="font-accent text-base text-memory-text">{`${profile.nickname} 现在约 ${agePreview}，告诉我们最近发生了什么吧。`}</span>
                   : '上传前先填写孩子的昵称和生日，我们会帮你记录年龄。'}
               </p>
             </div>
             <button
               type="button"
               onClick={handleReset}
-              className="rounded-xl border border-memory-rose/40 bg-white px-3 py-2 text-xs font-medium text-memory-ink transition hover:bg-memory-cream"
+              className="font-button rounded-xl border border-memory-coral/30 bg-white px-3 py-2 text-xs font-medium text-memory-muted transition hover:bg-memory-paper/70"
             >
               重新开始
             </button>
@@ -356,26 +356,28 @@ export function MemoryBoxApp() {
             <div className="space-y-6">
               <label
                 htmlFor="photo-upload-hidden"
-                className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-memory-rose/60 bg-memory-cream/60 p-10 text-center text-sm text-memory-ink/70 transition hover:border-memory-rose hover:bg-white"
+                className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-memory-coral/50 bg-memory-paper/60 p-10 text-center text-sm text-memory-muted transition hover:border-memory-coral hover:bg-white"
               >
                 <span>点击上传孩子的照片，或拖拽到这里</span>
-                <span className="text-xs text-memory-ink/50">支持 JPG / PNG，单张即可</span>
+                <span className="text-xs font-sans text-memory-muted">支持 JPG / PNG，单张即可</span>
               </label>
 
             </div>
           )}
 
           {view === 'generating' && (
-            <div className="flex flex-col items-center justify-center gap-4 rounded-2xl bg-memory-cream/70 p-10 text-center text-memory-ink/70">
+            <div className="flex flex-col items-center justify-center gap-4 rounded-2xl bg-memory-paper/70 p-10 text-center text-memory-muted">
               <span className="animate-pulse text-sm">正在为你写下今天的温柔… 🌼</span>
-              <span className="text-xs text-memory-ink/50">让这段记忆稍等几秒，就会为你盛放。</span>
+              <span className="text-xs font-sans text-memory-muted/80">
+                让这段记忆稍等几秒，就会为你盛放。
+              </span>
             </div>
           )}
 
           {view === 'preparing' && (
             <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
               {photoDataUrl ? (
-                <div className="relative overflow-hidden rounded-2xl border border-memory-rose/30 bg-memory-cream/40">
+                <div className="relative overflow-hidden rounded-2xl border border-memory-coral/30 bg-memory-paper/40">
                   <NextImage
                     src={photoDataUrl}
                     alt="预览"
@@ -387,25 +389,27 @@ export function MemoryBoxApp() {
                   />
                 </div>
               ) : (
-                <div className="flex min-h-[240px] items-center justify-center rounded-2xl border border-dashed border-memory-rose/40 bg-memory-cream/40 text-sm text-memory-ink/60">
+                <div className="flex min-h-[240px] items-center justify-center rounded-2xl border border-dashed border-memory-coral/40 bg-memory-paper/40 text-sm text-memory-muted">
                   等待你的照片上传…
                 </div>
               )}
 
               <div className="flex flex-col gap-4">
-                <p className="text-sm text-memory-ink/70">准备好了就点击下方按钮，让 AI 写下今天的温柔。</p>
+                <p className="text-sm text-memory-muted">
+                  准备好了就点击下方按钮，让 AI 写下今天的温柔。
+                </p>
                 <div className="flex flex-wrap items-center gap-3">
                   <button
                     type="button"
                     onClick={handleGenerateClick}
                     disabled={!selectedFile}
-                    className="rounded-xl bg-memory-rose px-5 py-3 text-sm font-semibold text-white transition hover:bg-memory-rose/90 disabled:cursor-not-allowed disabled:bg-memory-rose/60"
+                  className="font-button rounded-xl bg-memory-coral px-5 py-3 text-sm font-semibold text-white transition hover:bg-memory-coral/90 disabled:cursor-not-allowed disabled:bg-memory-coral/60"
                   >
                     开始生成成长日记
                   </button>
                   <label
                     htmlFor="photo-upload-hidden"
-                    className="cursor-pointer rounded-xl border border-memory-rose/40 bg-white px-4 py-2 text-xs font-medium text-memory-ink transition hover:bg-memory-cream"
+                    className="font-button rounded-xl border border-memory-coral/30 bg-white px-4 py-2 text-sm font-medium text-memory-muted transition hover:bg-memory-paper/70 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     换一张照片
                   </label>
@@ -417,7 +421,7 @@ export function MemoryBoxApp() {
           {view === 'editing' && (
             <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
               {photoDataUrl && (
-                <div className="relative overflow-hidden rounded-2xl border border-memory-rose/30 bg-memory-cream/40">
+                <div className="relative overflow-hidden rounded-2xl border border-memory-coral/30 bg-memory-paper/40">
                   <NextImage
                     src={photoDataUrl}
                     alt="预览"
@@ -432,13 +436,13 @@ export function MemoryBoxApp() {
 
               <div className="flex flex-col gap-5">
                 <label className="space-y-2">
-                  <span className="text-sm font-medium text-memory-ink/80">成长日记</span>
+                  <span className="text-sm font-button font-semibold text-memory-text">成长日记</span>
                   <textarea
                     value={diary}
                     onChange={(event) => setDiary(event.target.value)}
                     rows={8}
                     maxLength={120}
-                    className="w-full rounded-xl border border-memory-rose/40 bg-white px-3 py-3 text-base leading-relaxed text-memory-ink outline-none transition focus:border-memory-rose focus:ring-2 focus:ring-memory-rose/30"
+                    className="font-script w-full rounded-xl border border-memory-coral/30 bg-white px-3 py-3 text-base leading-relaxed text-memory-text outline-none transition focus:border-memory-coral focus:ring-2 focus:ring-memory-coral/25"
                   />
                 </label>
 
@@ -447,7 +451,7 @@ export function MemoryBoxApp() {
                     type="button"
                     onClick={handleSave}
                     disabled={!isReady || !isProfileReady || isDiaryEmpty || isSaving}
-                    className="rounded-xl bg-memory-rose px-5 py-3 text-sm font-semibold text-white transition hover:bg-memory-rose/90 disabled:cursor-not-allowed disabled:bg-memory-rose/60"
+                    className="font-button rounded-xl bg-memory-coral px-5 py-3 text-sm font-semibold text-white transition hover:bg-memory-coral/90 disabled:cursor-not-allowed disabled:bg-memory-coral/60"
                   >
                     {isSaving ? '收藏中…' : '存进我们的成长手账'}
                   </button>
@@ -455,12 +459,12 @@ export function MemoryBoxApp() {
                     type="button"
                     onClick={handleCopy}
                     disabled={!diary}
-                    className="rounded-xl border border-memory-rose/50 bg-white px-4 py-2 text-sm font-medium text-memory-ink transition hover:bg-memory-cream disabled:cursor-not-allowed disabled:opacity-60"
+                    className="font-button rounded-xl border border-memory-coral/30 bg-white px-4 py-2 text-sm font-medium text-memory-muted transition hover:bg-memory-paper/70 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {hasCopied ? '已复制 ✓' : '复制文字'}
                   </button>
                   {usage?.totalTokens !== undefined && (
-                    <span className="text-xs text-memory-ink/50">Tokens: {usage.totalTokens}</span>
+                    <span className="text-xs font-sans text-memory-muted/80">Tokens: {usage.totalTokens}</span>
                   )}
                 </div>
               </div>
@@ -468,11 +472,15 @@ export function MemoryBoxApp() {
           )}
 
           {error && (
-            <p className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>
+            <p className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm font-sans text-red-600">
+              {error}
+            </p>
           )}
 
           {(!isReady || !isProfileReady) && (
-            <p className="text-center text-xs text-memory-ink/40">正在唤醒成长手账，请稍候片刻…</p>
+            <p className="text-center text-xs font-sans text-memory-muted">
+              正在唤醒成长手账，请稍候片刻…
+            </p>
           )}
         </section>
       )}
@@ -526,16 +534,18 @@ function ProfileModal({ onClose, onSubmit, defaultNickname = '', defaultBirthdat
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-10 backdrop-blur-sm">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md space-y-6 rounded-3xl border border-memory-rose/40 bg-white p-8 shadow-2xl"
+        className="w-full max-w-md space-y-6 rounded-3xl border border-memory-coral/40 bg-white p-8 shadow-2xl"
       >
         <header className="space-y-2 text-center">
-          <h2 className="text-2xl font-semibold text-memory-ink">先认识一下小主角吧</h2>
-          <p className="text-sm text-memory-ink/60">我们会记住这些信息，帮你自动填写每次的日记。</p>
+          <h2 className="font-script text-2xl text-memory-text">先认识一下小主角吧</h2>
+          <p className="text-sm font-sans text-memory-muted">
+            我们会记住这些信息，帮你自动填写每次的日记。
+          </p>
         </header>
 
         <div className="space-y-4">
           <label className="space-y-2">
-            <span className="text-sm font-medium text-memory-ink/80">孩子昵称</span>
+            <span className="font-sans text-sm font-medium text-memory-text">孩子昵称</span>
             <input
               type="text"
               value={nickname}
@@ -545,12 +555,12 @@ function ProfileModal({ onClose, onSubmit, defaultNickname = '', defaultBirthdat
               }}
               maxLength={20}
               placeholder="例如：小果"
-              className="w-full rounded-xl border border-memory-rose/40 bg-white px-3 py-2 text-memory-ink outline-none transition focus:border-memory-rose focus:ring-2 focus:ring-memory-rose/30"
+              className="w-full rounded-xl border border-memory-coral/30 bg-white px-3 py-2 text-memory-text outline-none transition focus:border-memory-coral focus:ring-2 focus:ring-memory-coral/25"
             />
           </label>
 
           <label className="space-y-2">
-            <span className="text-sm font-medium text-memory-ink/80">出生日期</span>
+            <span className="font-sans text-sm font-medium text-memory-text">出生日期</span>
             <input
               type="date"
               value={birthdate}
@@ -558,19 +568,21 @@ function ProfileModal({ onClose, onSubmit, defaultNickname = '', defaultBirthdat
                 setBirthdate(event.target.value);
                 setError(null);
               }}
-              className="w-full rounded-xl border border-memory-rose/40 bg-white px-3 py-2 text-memory-ink outline-none transition focus:border-memory-rose focus:ring-2 focus:ring-memory-rose/30"
+              className="w-full rounded-xl border border-memory-coral/30 bg-white px-3 py-2 text-memory-text outline-none transition focus:border-memory-coral focus:ring-2 focus:ring-memory-coral/25"
             />
           </label>
         </div>
 
         {birthdate && (
-          <p className="text-center text-xs text-memory-ink/60">
-            今天的 {nickname || '宝贝'} 大约 {calculateAgeLabel(birthdate)}
+          <p className="text-center text-xs font-sans text-memory-muted">
+            今天的 {nickname || "宝贝"} 大约 {calculateAgeLabel(birthdate)}
           </p>
         )}
 
         {error && (
-          <p className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>
+          <p className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm font-sans text-red-600">
+            {error}
+          </p>
         )}
 
         <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
@@ -578,13 +590,13 @@ function ProfileModal({ onClose, onSubmit, defaultNickname = '', defaultBirthdat
             type="button"
             onClick={canSkip ? onClose : undefined}
             disabled={!canSkip}
-            className="rounded-xl border border-memory-rose/40 bg-white px-4 py-2 text-sm font-medium text-memory-ink transition hover:bg-memory-cream disabled:cursor-not-allowed disabled:opacity-60"
+            className="font-button rounded-xl border border-memory-coral/30 bg-white px-4 py-2 text-sm font-medium text-memory-muted transition hover:bg-memory-paper/70 disabled:cursor-not-allowed disabled:opacity-60"
           >
             稍后填写
           </button>
           <button
             type="submit"
-            className="rounded-xl bg-memory-rose px-5 py-2 text-sm font-semibold text-white transition hover:bg-memory-rose/90"
+            className="font-button rounded-xl bg-memory-coral px-5 py-2 text-sm font-semibold text-white transition hover:bg-memory-coral/90"
           >
             保存信息
           </button>

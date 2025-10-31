@@ -2,21 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: light;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  background-color: #fdf8f3;
-}
-
 body {
   margin: 0;
-  color: #2f2a26;
-  background-color: #fdf8f3;
+  color: #333333;
+  background-color: #fdfaf6;
+  background-image: radial-gradient(
+      rgba(0, 0, 0, 0.02) 1px,
+      transparent 1px
+    ),
+    radial-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+  background-size: 180px 180px, 220px 220px;
+  background-position: 0 0, 80px 120px;
   min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Microsoft Yahei", sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.06)
+  );
+  mix-blend-mode: multiply;
+  z-index: -1;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.font-sans {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Microsoft Yahei", sans-serif !important;
+}
+
+.font-script {
+  font-family: var(--font-script-cn), var(--font-script-en), cursive !important;
+}
+
+.font-accent {
+  font-family: var(--font-accent), var(--font-script-cn), cursive !important;
+}
+
+.font-button {
+  font-family: var(--font-button), system-ui, sans-serif !important;
+}
+
+.font-signature {
+  font-family: var(--font-signature), var(--font-script-cn), cursive !important;
+}
+
+.text-muted {
+  color: #666666;
 }

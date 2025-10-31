@@ -78,10 +78,10 @@ export default function SharePage() {
   if (!memory) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center gap-4 px-6 py-16 text-center">
-        <p className="text-base text-memory-ink/70">正在为你寻找这段记忆…</p>
+        <p className="text-base font-sans text-memory-muted">正在为你寻找这段记忆…</p>
         <Link
           href="/memories"
-          className="rounded-xl border border-memory-rose/40 bg-white px-4 py-2 text-sm text-memory-ink transition hover:bg-memory-cream"
+          className="font-button rounded-xl border border-memory-coral/30 bg-white px-4 py-2 text-sm font-medium text-memory-muted transition hover:bg-memory-paper/70"
         >
           返回成长手账
         </Link>
@@ -92,20 +92,20 @@ export default function SharePage() {
   return (
     <main className="flex min-h-screen flex-col items-center gap-10 px-6 py-16">
       <header className="text-center">
-        <h1 className="text-4xl font-semibold text-memory-ink sm:text-5xl">
+        <h1 className="font-script text-4xl text-memory-text sm:text-5xl">
           寄给未来的我们 💌
         </h1>
-        <p className="mt-4 text-sm text-memory-ink/70">
+        <p className="mt-4 text-sm font-sans text-memory-muted">
           把这张闪光时刻装进明信片，下载后随时分享给家人。
         </p>
       </header>
 
       <div
         ref={cardRef}
-        className="w-full max-w-md rounded-[32px] border border-memory-rose/40 bg-gradient-to-br from-memory-cream to-white p-6 shadow-lg"
+        className="w-full max-w-md rounded-[32px] border border-memory-coral/30 bg-gradient-to-br from-memory-paper to-white p-6 shadow-memory-card"
       >
-        <div className="flex h-full flex-col gap-5 rounded-3xl bg-white/80 p-5">
-          <div className="relative overflow-hidden rounded-2xl border border-memory-rose/30">
+        <div className="flex h-full flex-col gap-5 rounded-3xl bg-white/85 p-5">
+          <div className="relative overflow-hidden rounded-2xl border border-memory-coral/25 shadow-memory-card">
             <div
               className="relative w-full"
               style={{ aspectRatio: imageAspectRatio ?? 4 / 3 }}
@@ -121,14 +121,16 @@ export default function SharePage() {
             </div>
           </div>
 
-          <div className="flex-1 whitespace-pre-line text-left text-base leading-relaxed text-memory-ink">
+          <div className="font-script flex-1 whitespace-pre-line text-left text-base leading-relaxed text-memory-text">
             {memory.diary}
           </div>
 
-          <div className="mt-auto space-y-1 text-left text-xs text-memory-ink/60">
+          <div className="mt-auto space-y-1 text-left text-xs font-accent text-memory-muted">
             <p>{formatDate(memory.createdAt)}</p>
             {memory.age && <p>记录时约 {memory.age}</p>}
-            <p>写给 {memory.nickname ? `${memory.nickname} 的家人` : '未来的我们'}</p>
+            <p className="font-signature text-lg text-memory-text">
+              写给 {memory.nickname ? `${memory.nickname} 的家人` : '未来的我们'}
+            </p>
           </div>
         </div>
       </div>
@@ -138,20 +140,20 @@ export default function SharePage() {
           type="button"
           onClick={handleDownload}
           disabled={isDownloading}
-          className="rounded-xl bg-memory-rose px-5 py-3 text-sm font-semibold text-white transition hover:bg-memory-rose/90 disabled:cursor-not-allowed disabled:bg-memory-rose/60"
+          className="font-button rounded-xl bg-memory-coral px-5 py-3 text-sm font-semibold text-white transition hover:bg-memory-coral/90 disabled:cursor-not-allowed disabled:bg-memory-coral/60"
         >
           {isDownloading ? '生成中…' : '寄给未来的我们'}
         </button>
         <Link
           href="/memories"
-          className="rounded-xl border border-memory-rose/40 bg-white px-4 py-2 text-sm font-medium text-memory-ink transition hover:bg-memory-cream"
+          className="font-button rounded-xl border border-memory-coral/30 bg-white px-4 py-2 text-sm font-medium text-memory-muted transition hover:bg-memory-paper/70"
         >
           返回成长手账
         </Link>
       </div>
 
       {statusMessage && (
-        <p className="text-sm text-memory-ink/60">{statusMessage}</p>
+        <p className="text-sm font-sans text-memory-muted">{statusMessage}</p>
       )}
     </main>
   );
