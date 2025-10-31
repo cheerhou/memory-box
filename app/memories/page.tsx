@@ -11,7 +11,8 @@ export default function MemoriesPage() {
   const searchParams = useSearchParams();
   const highlightId = searchParams.get('highlight');
 
-  const { memories, updateMemory, stats, isReady } = useMemories();
+  const { memories, updateMemory, deleteMemory, stats, isReady } = useMemories();
+  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
 
   const [editingId, setEditingId] = useState<string | null>(null);
   const [draftDiary, setDraftDiary] = useState('');
@@ -161,6 +162,13 @@ export default function MemoriesPage() {
                   >
                     寄明信片
                   </button>
+                  <button
+                    type="button"
+                    onClick={() => setDeleteTargetId(memory.id)}
+                    className="rounded-xl border border-red-200 bg-white px-3 py-2 text-xs font-medium text-red-500 transition hover:bg-red-50"
+                  >
+                    删除
+                  </button>
                 </div>
               </div>
             </article>
@@ -222,6 +230,39 @@ export default function MemoriesPage() {
                 className="rounded-xl bg-memory-rose px-5 py-2 text-sm font-semibold text-white transition hover:bg-memory-rose/90 disabled:cursor-not-allowed disabled:bg-memory-rose/60"
               >
                 保存
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {deleteTargetId && (
+        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/40 px-4 py-10 backdrop-blur-sm" onClick={() => setDeleteTargetId(null)}>
+          <div
+            className="w-full max-w-sm space-y-4 rounded-3xl border border-red-200 bg-white p-6 text-center shadow-lg"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <h2 className="text-lg font-semibold text-memory-ink">确定要删掉这段记忆吗？</h2>
+            <p className="text-sm text-memory-ink/70">
+              删除后无法恢复，可以先导出明信片再决定。
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => setDeleteTargetId(null)}
+                className="rounded-xl border border-memory-rose/40 bg-white px-4 py-2 text-sm font-medium text-memory-ink transition hover:bg-memory-cream"
+              >
+                先留着
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  deleteMemory(deleteTargetId);
+                  setDeleteTargetId(null);
+                }}
+                className="rounded-xl bg-red-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600"
+              >
+                确认删除
               </button>
             </div>
           </div>

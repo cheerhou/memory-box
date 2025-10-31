@@ -362,20 +362,6 @@ export function MemoryBoxApp() {
                 <span className="text-xs text-memory-ink/50">支持 JPG / PNG，单张即可</span>
               </label>
 
-              <div className="space-y-1">
-                <label htmlFor="keywords" className="text-sm font-medium text-memory-ink/80">
-                  最近的关键词或事件（选填）
-                </label>
-                <input
-                  id="keywords"
-                  type="text"
-                  value={keywords}
-                  onChange={(event) => setKeywords(event.target.value)}
-                  maxLength={50}
-                  placeholder="例如：第一次画彩虹、准备上幼儿园"
-                  className="w-full rounded-xl border border-memory-rose/40 bg-white px-3 py-2 text-memory-ink outline-none transition focus:border-memory-rose focus:ring-2 focus:ring-memory-rose/30"
-                />
-              </div>
             </div>
           )}
 
@@ -407,22 +393,7 @@ export function MemoryBoxApp() {
               )}
 
               <div className="flex flex-col gap-4">
-                <p className="text-sm text-memory-ink/70">
-                  想提醒的关键词或小故事可以先写下，再点击下方按钮生成文案。
-                </p>
-                <label htmlFor="keywords-pre" className="space-y-2">
-                  <span className="text-xs font-medium text-memory-ink/70">最近的关键词或事件（选填）</span>
-                  <input
-                    id="keywords-pre"
-                    type="text"
-                    value={keywords}
-                    onChange={(event) => setKeywords(event.target.value)}
-                    maxLength={50}
-                    className="w-full rounded-xl border border-memory-rose/40 bg-white px-3 py-2 text-sm text-memory-ink outline-none transition focus:border-memory-rose focus:ring-2 focus:ring-memory-rose/30"
-                    placeholder="例如：第一次画彩虹、准备上幼儿园"
-                  />
-                </label>
-
+                <p className="text-sm text-memory-ink/70">准备好了就点击下方按钮，让 AI 写下今天的温柔。</p>
                 <div className="flex flex-wrap items-center gap-3">
                   <button
                     type="button"
@@ -470,20 +441,6 @@ export function MemoryBoxApp() {
                     className="w-full rounded-xl border border-memory-rose/40 bg-white px-3 py-3 text-base leading-relaxed text-memory-ink outline-none transition focus:border-memory-rose focus:ring-2 focus:ring-memory-rose/30"
                   />
                 </label>
-
-                <div className="space-y-1">
-                  <label htmlFor="keywords-edit" className="text-xs font-medium text-memory-ink/70">
-                    最近的关键词或事件（选填）
-                  </label>
-                  <input
-                    id="keywords-edit"
-                    type="text"
-                    value={keywords}
-                    onChange={(event) => setKeywords(event.target.value)}
-                    maxLength={50}
-                    className="w-full rounded-xl border border-memory-rose/40 bg-white px-3 py-2 text-sm text-memory-ink outline-none transition focus:border-memory-rose focus:ring-2 focus:ring-memory-rose/30"
-                  />
-                </div>
 
                 <div className="flex flex-wrap items-center gap-3">
                   <button
