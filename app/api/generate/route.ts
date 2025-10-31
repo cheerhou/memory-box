@@ -114,8 +114,15 @@ export async function POST(request: Request) {
 
     if (typeof message?.content === "string") {
       diary = message.content.trim();
-    } else if (Array.isArray(message?.content)) {
-      diary = message.content
+  } else if (Array.isArray(message?.content)) {
+    const parts = message.content as Array<
+      | string
+      | {
+          type?: string;
+          text?: string;
+        }
+    >;
+    diary = parts
         .map((part) => {
           if (typeof part === "string") {
             return part;

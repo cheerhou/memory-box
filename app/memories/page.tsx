@@ -2,14 +2,15 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { useMemories } from '@/hooks/use-memories';
 
 export default function MemoriesPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const highlightId = searchParams.get('highlight');
+  const highlightId = typeof window !== 'undefined'
+    ? new URLSearchParams(window.location.search).get('highlight')
+    : null;
 
   const { memories, updateMemory, deleteMemory, stats, isReady } = useMemories();
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
@@ -24,6 +25,7 @@ export default function MemoriesPage() {
   );
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     if (!highlightId || !memories.length) return;
     const element = document.getElementById(`memory-${highlightId}`);
     if (!element) return;
@@ -32,13 +34,13 @@ export default function MemoriesPage() {
     const timeout = setTimeout(() => {
       element.classList.remove('ring-2', 'ring-memory-coral', 'shadow-lg');
     }, 3600);
-    const search = new URLSearchParams(searchParams.toString());
+    const search = new URLSearchParams(window.location.search);
     search.delete('highlight');
     router.replace(`/memories${search.toString() ? `?${search}` : ''}`, {
       scroll: false
     });
     return () => clearTimeout(timeout);
-  }, [highlightId, memories, router, searchParams]);
+  }, [highlightId, memories, router]);
 
   useEffect(() => {
     if (!editingMemory) return;

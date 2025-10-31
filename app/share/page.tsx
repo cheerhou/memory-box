@@ -3,7 +3,7 @@
 import html2canvas from 'html2canvas';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useMemories } from '@/hooks/use-memories';
 
@@ -17,8 +17,9 @@ function formatDate(value: string) {
 
 export default function SharePage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const memoryId = searchParams.get('memoryId');
+  const memoryId = typeof window !== 'undefined'
+    ? new URLSearchParams(window.location.search).get('memoryId')
+    : null;
   const cardRef = useRef<HTMLDivElement | null>(null);
 
   const { memories, isReady } = useMemories();
