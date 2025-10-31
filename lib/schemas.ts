@@ -9,3 +9,8 @@ export const memorySchema = z.object({
   age: z.string().optional(),
   keywords: z.string().optional()
 });
+
+export const profileSchema = z.object({
+  nickname: z.string().min(1),
+  birthdate: z.string().min(1)
+});

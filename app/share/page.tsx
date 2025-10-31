@@ -24,6 +24,7 @@ export default function SharePage() {
   const { memories, isReady } = useMemories();
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [imageAspectRatio, setImageAspectRatio] = useState<number | null>(null);
 
   const memory = useMemo(
     () => memories.find((item) => item.id === memoryId) ?? null,
@@ -37,13 +38,27 @@ export default function SharePage() {
     }
   }, [isReady, memory, memoryId, router]);
 
+  useEffect(() => {
+    if (!memory) return;
+    const img = new window.Image();
+    img.src = memory.photoDataUrl;
+    img.onload = () => {
+      if (img.naturalHeight > 0) {
+        setImageAspectRatio(img.naturalWidth / img.naturalHeight);
+      }
+    };
+  }, [memory]);
+
   const handleDownload = async () => {
     if (!cardRef.current) return;
     try {
       setIsDownloading(true);
       setStatusMessage(null);
       const canvas = await html2canvas(cardRef.current, {
-        backgroundColor: '#FDF8F3'
+        backgroundColor: '#FDF8F3',
+        scale: 2,
+        useCORS: true,
+        imageTimeout: 0
       });
       const dataUrl = canvas.toDataURL('image/png');
       const link = document.createElement('a');
@@ -91,7 +106,10 @@ export default function SharePage() {
       >
         <div className="flex h-full flex-col gap-5 rounded-3xl bg-white/80 p-5">
           <div className="relative overflow-hidden rounded-2xl border border-memory-rose/30">
-            <div className="relative aspect-[4/3] w-full">
+            <div
+              className="relative w-full"
+              style={{ aspectRatio: imageAspectRatio ?? 4 / 3 }}
+            >
               <Image
                 src={memory.photoDataUrl}
                 alt="闪光时刻"
@@ -109,6 +127,7 @@ export default function SharePage() {
 
           <div className="mt-auto space-y-1 text-left text-xs text-memory-ink/60">
             <p>{formatDate(memory.createdAt)}</p>
+            {memory.age && <p>记录时约 {memory.age}</p>}
             <p>写给 {memory.nickname ? `${memory.nickname} 的家人` : '未来的我们'}</p>
           </div>
         </div>

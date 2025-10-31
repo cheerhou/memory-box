@@ -15,8 +15,6 @@ export default function MemoriesPage() {
 
   const [editingId, setEditingId] = useState<string | null>(null);
   const [draftDiary, setDraftDiary] = useState('');
-  const [draftNickname, setDraftNickname] = useState('');
-  const [draftAge, setDraftAge] = useState('');
   const [draftKeywords, setDraftKeywords] = useState('');
 
   const editingMemory = useMemo(
@@ -44,8 +42,6 @@ export default function MemoriesPage() {
   useEffect(() => {
     if (!editingMemory) return;
     setDraftDiary(editingMemory.diary);
-    setDraftNickname(editingMemory.nickname ?? '');
-    setDraftAge(editingMemory.age ?? '');
     setDraftKeywords(editingMemory.keywords ?? '');
   }, [editingMemory]);
 
@@ -70,8 +66,6 @@ export default function MemoriesPage() {
     if (!trimmedDiary) return;
     updateMemory(editingId, {
       diary: trimmedDiary,
-      nickname: draftNickname.trim() || undefined,
-      age: draftAge.trim() || undefined,
       keywords: draftKeywords.trim() || undefined
     });
     setEditingId(null);
@@ -148,6 +142,7 @@ export default function MemoriesPage() {
                       })}
                     </span>
                     {memory.nickname && <span> · {memory.nickname}</span>}
+                    {memory.age && <span> · {memory.age}</span>}
                   </div>
                 </div>
 
@@ -182,6 +177,12 @@ export default function MemoriesPage() {
             <header className="space-y-2">
               <h2 className="text-xl font-semibold text-memory-ink">轻轻改一改</h2>
               <p className="text-xs text-memory-ink/60">调整文字，保留这份温柔记忆。</p>
+              {(editingMemory.nickname || editingMemory.age) && (
+                <p className="text-xs text-memory-ink/50">
+                  {editingMemory.nickname ?? '宝贝'}
+                  {editingMemory.age ? ` · ${editingMemory.age}` : ''}
+                </p>
+              )}
             </header>
 
             <label className="space-y-2">
@@ -195,39 +196,15 @@ export default function MemoriesPage() {
               />
             </label>
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div className="space-y-1">
-                <label className="text-xs font-medium text-memory-ink/70">孩子昵称</label>
-                <input
-                  type="text"
-                  value={draftNickname}
-                  onChange={(event) => setDraftNickname(event.target.value)}
-                  maxLength={20}
-                  className="w-full rounded-xl border border-memory-rose/40 bg-white px-3 py-2 text-sm text-memory-ink outline-none transition focus:border-memory-rose focus:ring-2 focus:ring-memory-rose/30"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-medium text-memory-ink/70">年龄</label>
-                <input
-                  type="text"
-                  value={draftAge}
-                  onChange={(event) => setDraftAge(event.target.value)}
-                  maxLength={20}
-                  className="w-full rounded-xl border border-memory-rose/40 bg-white px-3 py-2 text-sm text-memory-ink outline-none transition focus:border-memory-rose focus:ring-2 focus:ring-memory-rose/30"
-                />
-              </div>
-
-              <div className="sm:col-span-2 space-y-1">
-                <label className="text-xs font-medium text-memory-ink/70">关键词或事件</label>
-                <input
-                  type="text"
-                  value={draftKeywords}
-                  onChange={(event) => setDraftKeywords(event.target.value)}
-                  maxLength={50}
-                  className="w-full rounded-xl border border-memory-rose/40 bg-white px-3 py-2 text-sm text-memory-ink outline-none transition focus:border-memory-rose focus:ring-2 focus:ring-memory-rose/30"
-                />
-              </div>
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-memory-ink/70">关键词或事件</label>
+              <input
+                type="text"
+                value={draftKeywords}
+                onChange={(event) => setDraftKeywords(event.target.value)}
+                maxLength={50}
+                className="w-full rounded-xl border border-memory-rose/40 bg-white px-3 py-2 text-sm text-memory-ink outline-none transition focus:border-memory-rose focus:ring-2 focus:ring-memory-rose/30"
+              />
             </div>
 
             <div className="flex flex-wrap items-center justify-end gap-3">
